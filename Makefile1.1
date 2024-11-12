@@ -1,0 +1,33 @@
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11
+
+# Target executable
+TARGET = testdate
+
+# Source files
+SRCS = date.c testdate.c
+
+# Object files (replace .c with .o)
+OBJS = $(SRCS:.c=.o)
+
+# Default target to build and run
+all: $(TARGET)
+	@echo "Running $(TARGET)..."
+	./$(TARGET)
+
+# Rule to compile the target
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+
+# Rule to compile .c files into .o files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean up the build files
+clean:
+	rm -f $(OBJS) $(TARGET)
+	@echo "Cleaned up!"
+
+# Phony targets to avoid conflicts with file names
+.PHONY: all clean
